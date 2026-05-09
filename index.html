@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Rochim & Desti ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose:       #b85c6e;
+    --rose-deep:  #8a3a4a;
+    --rose-soft:  #e8a0ac;
+    --rose-light: #fdf0f2;
+    --rose-pale:  #fdf7f8;
+    --gold:       #c9973a;
+    --gold-soft:  #e8c87a;
+    --gold-light: #fdf5e6;
+    --cream:      #fefaf5;
+    --dark:       #1e1414;
+    --muted:      #8a7070;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans:  'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--dark);
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ======== PETALS ANIMATION ======== */
+  .petals {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0%   { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
+  }
+
+  /* ======== NAV ======== */
+  .nav {
+    position: fixed;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    z-index: 100;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(254, 250, 245, 0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid rgba(200,150,120,0.2);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--rose);
+    letter-spacing: 0.5px;
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: 18px;
+  }
+
+  .nav-menu a {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-menu a:hover { color: var(--rose); }
+
+  /* ======== HERO ======== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 48px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(232,160,172,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 80% 90%, rgba(201,151,58,0.15) 0%, transparent 60%),
+      var(--cream);
+    overflow: hidden;
+  }
+
+  .hero-ornament {
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.04;
+    font-family: var(--serif);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-names {
+    font-family: var(--serif);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--dark);
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  .hero-names em {
+    font-style: italic;
+    color: var(--rose);
+    display: block;
+  }
+
+  .hero-amp {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 28px;
+    color: var(--gold);
+    display: block;
+    margin: 6px 0;
+    font-weight: 400;
+  }
+
+  .hero-since {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .hero-since .line {
+    flex: 1;
+    height: 0.5px;
+    background: linear-gradient(to right, transparent, var(--gold-soft), transparent);
+  }
+
+  .hero-since span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--rose-soft), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* ======== COUNTER ======== */
+  .counter {
+    background: var(--dark);
+    padding: 36px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .counter::before {
+    content: '♥';
+    position: absolute;
+    font-size: 180px;
+    color: white;
+    opacity: 0.03;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  .counter-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose-soft);
+    margin-bottom: 20px;
+  }
+
+  .counter-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .counter-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+
+  .counter-unit + .counter-unit {
+    border-left: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .counter-num {
+    font-family: var(--serif);
+    font-size: 52px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .counter-sub {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose-soft);
+    margin-top: 4px;
+  }
+
+  /* ======== SECTION COMMON ======== */
+  section {
+    padding: 56px 24px;
+    position: relative;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-eyebrow::before, .section-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: linear-gradient(to right, transparent, var(--gold-soft));
+  }
+
+  .section-eyebrow::after {
+    background: linear-gradient(to left, transparent, var(--gold-soft));
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  /* ======== TIMELINE ======== */
+  .timeline-section {
+    background: var(--rose-pale);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rose-soft) 10%, var(--rose-soft) 90%, transparent);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 36px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .tl-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-dot {
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--rose);
+    border: 2.5px solid var(--rose-pale);
+    box-shadow: 0 0 0 1px var(--rose-soft);
+  }
+
+  .tl-dot.gold {
+    background: var(--gold);
+    box-shadow: 0 0 0 1px var(--gold-soft);
+    width: 14px;
+    height: 14px;
+    left: -26px;
+  }
+
+  .tl-date {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .tl-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .tl-emoji {
+    font-size: 18px;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .tl-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ======== GALLERY ======== */
+  .gallery-section {
+    background: var(--gold-light);
+    padding: 56px 0;
+  }
+
+  .gallery-section .section-eyebrow,
+  .gallery-section .section-title {
+    padding: 0 24px;
+  }
+
+  .gallery-scroll {
+    display: flex;
+    gap: 12px;
+    padding: 0 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .gallery-scroll::-webkit-scrollbar { display: none; }
+
+  .gallery-card {
+    flex: 0 0 200px;
+    height: 260px;
+    border-radius: 20px;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-card:active { transform: scale(0.97); }
+
+  .gallery-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+  }
+
+  .gallery-card:nth-child(1) .gallery-inner { background: linear-gradient(145deg, #d4748a, #b85c6e); }
+  .gallery-card:nth-child(2) .gallery-inner { background: linear-gradient(145deg, #c9973a, #a87c2a); }
+  .gallery-card:nth-child(3) .gallery-inner { background: linear-gradient(145deg, #c06a7a, #8a3a4a); }
+  .gallery-card:nth-child(4) .gallery-inner { background: linear-gradient(145deg, #e8c87a, #c9973a); }
+  .gallery-card:nth-child(5) .gallery-inner { background: linear-gradient(145deg, #e8a0ac, #d4748a); }
+
+  .gallery-emoji { font-size: 36px; }
+
+  .gallery-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .gallery-label.dark-text {
+    color: rgba(30,20,20,0.7);
+  }
+
+  /* ======== MUSIC ======== */
+  .music-section {
+    background: var(--dark);
+    padding: 56px 24px;
+    text-align: center;
+  }
+
+  .music-section .section-eyebrow {
+    color: var(--gold-soft);
+  }
+
+  .music-section .section-eyebrow::before,
+  .music-section .section-eyebrow::after {
+    background: linear-gradient(to right, transparent, rgba(232,200,122,0.4));
+  }
+
+  .music-section .section-title {
+    color: white;
+  }
+
+  .music-section .section-title em {
+    color: var(--gold-soft);
+  }
+
+  .music-player {
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .music-player::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(184,92,110,0.12), transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(201,151,58,0.08), transparent 60%);
+  }
+
+  .music-album {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose-deep), var(--gold));
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(184,92,110,0.4);
+  }
+
+  .music-album.spinning {
+    animation: spin 8s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .music-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    color: white;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 4px;
+  }
+
+  .music-artist {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .music-progress {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  .music-bar {
+    height: 100%;
+    width: 35%;
+    border-radius: 2px;
+    background: linear-gradient(to right, var(--rose), var(--gold));
+    position: relative;
+    transition: width 0.5s linear;
+  }
+
+  .music-bar::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 8px rgba(184,92,110,0.6);
+  }
+
+  .music-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .music-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .music-btn:active { transform: scale(0.9); }
+
+  .music-btn.main {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 4px 20px rgba(184,92,110,0.5);
+    transition: transform 0.1s, box-shadow 0.2s;
+  }
+
+  .music-btn.main:active {
+    transform: scale(0.94);
+    box-shadow: 0 2px 10px rgba(184,92,110,0.4);
+  }
+
+  .music-time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+  }
+
+  /* ======== LOVE LETTER ======== */
+  .letter-section {
+    background: var(--rose-light);
+    padding: 56px 24px;
+  }
+
+  .letter-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    position: relative;
+    box-shadow: 0 4px 40px rgba(184,92,110,0.08);
+    border: 0.5px solid rgba(184,92,110,0.12);
+  }
+
+  .letter-deco {
+    font-family: var(--serif);
+    font-size: 72px;
+    color: var(--rose-light);
+    position: absolute;
+    top: 8px; left: 16px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .letter-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--dark);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 24px;
+  }
+
+  .letter-from {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 500;
+  }
+
+  .letter-divider {
+    width: 40px;
+    height: 0.5px;
+    background: var(--rose-soft);
+    margin: 16px auto;
+  }
+
+  /* ======== FOOTER ======== */
+  footer {
+    background: var(--dark);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,92,110,0.15), transparent 70%);
+    pointer-events: none;
+  }
+
+  .footer-heart {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 16px;
+    animation: heartbeat 1.6s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.1); }
+    56% { transform: scale(1); }
+  }
+
+  .footer-names {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 28px;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose-soft);
+  }
+
+  .footer-date {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* ======== ANIMATIONS ======== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- Petals -->
+<div class="petals" id="petals"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Rochim & Desti</div>
+  <div class="nav-menu">
+    <a href="#timeline">Timeline</a>
+    <a href="#gallery">Galeri</a>
+    <a href="#music">Musik</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-ornament">♥</div>
+  <p class="hero-eyebrow">✦ our love story ✦</p>
+  <h1 class="hero-names">
+    Rochim
+    <span class="hero-amp">&</span>
+    <em>Desti</em>
+  </h1>
+  <div class="hero-since">
+    <div class="line"></div>
+    <span>16 Mei 2025</span>
+    <div class="line"></div>
+  </div>
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- COUNTER -->
+<div class="counter">
+  <p class="counter-label">✦ Sudah bersama selama ✦</p>
+  <div class="counter-grid">
+    <div class="counter-unit">
+      <span class="counter-num" id="c-days">--</span>
+      <span class="counter-sub">Hari</span>
+    </div>
+    <div class="counter-unit">
+      <span class="counter-num" id="c-hours">--</span>
+      <span class="counter-sub">Jam</span>
+    </div>
+    <div class="counter-unit">
+      <span class="counter-num" id="c-mins">--</span>
+      <span class="counter-sub">Menit</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="timeline">
+  <p class="section-eyebrow fade-in">Jejak Langkah Kita</p>
+  <h2 class="section-title fade-in">Momen yang<br><em>Tak Terlupakan</em></h2>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <span class="tl-emoji">🌸</span>
+      <p class="tl-date">Awal yang Indah</p>
+      <h3 class="tl-title">Pertama Kali Bertemu</h3>
+      <p class="tl-desc">Di parkiran SMA, di antara kebisingan dan kehidupan sehari-hari, dua jiwa yang belum tahu bahwa hari itu akan mengubah segalanya.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <span class="tl-emoji">🍽️</span>
+      <p class="tl-date">16 Mei 2025</p>
+      <h3 class="tl-title">Makan Malam Bersama Keluarga</h3>
+      <p class="tl-desc">Makan malam yang penuh kehangatan — hari yang sama, momen yang jauh lebih bermakna dari sekedar makan bersama. Hari ini jadi permulaan segalanya.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot gold"></div>
+      <span class="tl-emoji">💌</span>
+      <p class="tl-date">16 Mei 2026</p>
+      <h3 class="tl-title">Pernyataan yang Serius</h3>
+      <p class="tl-desc">Setahun berlalu, dan ini bukan lagi sekadar perasaan — ini komitmen. Kata-kata yang diucapkan dengan sepenuh hati, untuk satu orang yang tepat.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <p class="section-eyebrow fade-in" style="padding:0 24px;">Kenangan Visual</p>
+  <h2 class="section-title fade-in" style="padding:0 24px; margin-bottom:24px;">Galeri <em>Kita</em></h2>
+  <div class="gallery-scroll">
+    <div class="gallery-card">
+      <div class="gallery-inner">
+        <span class="gallery-emoji">🌹</span>
+        <span class="gallery-label">Foto Pertama</span>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-inner">
+        <span class="gallery-emoji">✨</span>
+        <span class="gallery-label dark-text">Momen Spesial</span>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-inner">
+        <span class="gallery-emoji">🌙</span>
+        <span class="gallery-label">Malam Kita</span>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-inner">
+        <span class="gallery-emoji">☀️</span>
+        <span class="gallery-label dark-text">Hari Bahagia</span>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-inner">
+        <span class="gallery-emoji">💕</span>
+        <span class="gallery-label">Selalu Bersama</span>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:16px; font-size:11px; color:var(--muted); letter-spacing:1px; padding:0 24px;">← geser untuk lihat lebih →</p>
+</section>
+
+<!-- MUSIC -->
+<section class="music-section" id="music">
+  <p class="section-eyebrow fade-in" style="color:var(--gold-soft);">Lagu Kita</p>
+  <h2 class="section-title fade-in" style="margin-bottom:28px;">Dengerin <em>Bareng</em></h2>
+  <div class="music-player">
+    <div class="music-album" id="albumArt">🌼</div>
+    <p class="music-title">Dandelion</p>
+    <p class="music-artist">Ruth B.</p>
+    <div class="music-time">
+      <span id="currentTime">0:00</span>
+      <span>3:54</span>
+    </div>
+    <div class="music-progress" id="progressBar">
+      <div class="music-bar" id="progressFill"></div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="btnPrev" title="Sebelumnya">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+      </button>
+      <button class="music-btn main" id="btnPlay" title="Play/Pause">
+        <svg id="iconPlay" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg id="iconPause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <button class="music-btn" id="btnNext" title="Berikutnya">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+      </button>
+    </div>
+  </div>
+  <p style="text-align:center; margin-top:16px; font-size:11px; color:rgba(255,255,255,0.2); font-style:italic; font-family:var(--serif);">"lagu yang selalu mengingatkan satu sama lain"</p>
+</section>
+
+<!-- LOVE LETTER -->
+<section class="letter-section" id="letter">
+  <p class="section-eyebrow fade-in">Dari Hati</p>
+  <h2 class="section-title fade-in">Surat <em>Cinta</em></h2>
+  <div class="letter-card fade-in">
+    <span class="letter-deco">❝</span>
+    <p class="letter-quote">Bukan kebetulan kita bertemu di parkiran itu. Alam semesta punya caranya sendiri untuk mempertemukan dua hati yang memang sudah ditakdirkan bersama.</p>
+    <div class="letter-divider"></div>
+    <p class="letter-from">✦ dengan cinta, Rochim & Desti ✦</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-heart">♥</span>
+  <p class="footer-names">Rochim & Desti</p>
+  <p class="footer-tagline">forever & always</p>
+  <p class="footer-date">Sejak 16 Mei 2025</p>
+</footer>
+
+<script>
+  // === PETALS ===
+  const petalsEl = document.getElementById('petals');
+  const symbols = ['🌸', '🌹', '✿', '❀', '✦', '♥'];
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (10 + Math.random() * 10) + 'px';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    petalsEl.appendChild(p);
+  }
+
+  // === COUNTER ===
+  function updateCounter() {
+    const start = new Date('2025-05-16T00:00:00');
+    const now = new Date();
+    const diff = Math.max(0, now - start);
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('c-days').textContent  = days.toLocaleString('id-ID');
+    document.getElementById('c-hours').textContent = hours;
+    document.getElementById('c-mins').textContent  = mins;
+  }
+  updateCounter();
+  setInterval(updateCounter, 30000);
+
+  // === SCROLL ANIMATIONS ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in, .tl-item').forEach(el => observer.observe(el));
+
+  // === MUSIC PLAYER ===
+  const totalSecs = 234; // 3:54
+  let currentSec = 0;
+  let playing = false;
+  let interval = null;
+
+  const btnPlay = document.getElementById('btnPlay');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const progressFill = document.getElementById('progressFill');
+  const currentTimeEl = document.getElementById('currentTime');
+  const albumArt = document.getElementById('albumArt');
+  const progressBar = document.getElementById('progressBar');
+
+  function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
+  }
+
+  function updateProgress() {
+    const pct = (currentSec / totalSecs) * 100;
+    progressFill.style.width = pct + '%';
+    currentTimeEl.textContent = formatTime(currentSec);
+    if (currentSec >= totalSecs) {
+      pauseMusic();
+      currentSec = 0;
+      updateProgress();
+    }
+  }
+
+  function playMusic() {
+    playing = true;
+    iconPlay.style.display = 'none';
+    iconPause.style.display = 'block';
+    albumArt.classList.add('spinning');
+    interval = setInterval(() => {
+      currentSec++;
+      updateProgress();
+    }, 1000);
+  }
+
+  function pauseMusic() {
+    playing = false;
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+    albumArt.classList.remove('spinning');
+    clearInterval(interval);
+  }
+
+  btnPlay.addEventListener('click', () => {
+    if (playing) pauseMusic(); else playMusic();
+  });
+
+  document.getElementById('btnPrev').addEventListener('click', () => {
+    currentSec = Math.max(0, currentSec - 15);
+    updateProgress();
+  });
+
+  document.getElementById('btnNext').addEventListener('click', () => {
+    currentSec = Math.min(totalSecs - 1, currentSec + 15);
+    updateProgress();
+  });
+
+  progressBar.addEventListener('click', (e) => {
+    const rect = progressBar.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    currentSec = Math.floor(pct * totalSecs);
+    updateProgress();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>
